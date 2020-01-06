@@ -1,0 +1,79 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath BuildScriptLibs.ANDROID
+        classpath BuildScriptLibs.DETEKT
+        classpath BuildScriptLibs.KOTLIN
+        classpath BuildScriptLibs.ANDROID_CHECK
+        classpath PublishLibs.MAVEN_PUBLISH
+        classpath PublishLibs.MAVEN_SETTINGS
+    }
+}
+
+ext.projectName = 'Varanus'
+ext.projectDescription = 'A client-side Android library to monitor and limit network traffic sent by your apps'
+
+apply plugin: "com.android.library"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.noveogroup.android.check'
+apply plugin: 'findbugs'
+apply from: '../module.gradle'
+apply from: '../publishing.gradle'
+
+dependencies {
+    implementation Libs.COROUTINES
+    implementation Libs.OKHTTP
+
+    detekt Libs.DETEKT
+    implementation PlayServicesLibs.BASEMENT
+
+    /** Testing dependencies */
+    testImplementation TestLibs.JUNIT
+    testImplementation TestLibs.MOCKITO_CORE
+}
+
+android {
+    compileSdkVersion Versions.COMPILE_SDK
+    defaultConfig {
+        minSdkVersion Versions.MIN_SDK
+        targetSdkVersion Versions.TARGET_SDK
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+check {
+    abortOnError true
+
+    pmd {
+        config '../static_analysis_config/pmd_ruleset_config.xml'
+    }
+
+    checkstyle {
+        config '../static_analysis_config/checkstyle_config.xml'
+    }
+}
+
+configurations {
+    detekt
+}
+
+dependencies {
+    detekt
+}

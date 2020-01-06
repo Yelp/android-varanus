@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+apply from: '../module.gradle'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId "com.yelp.varanussampleapp"
+        minSdkVersion 28
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility = Versions.TARGET_COMPATIBILITY
+        sourceCompatibility = Versions.SOURCE_COMPATIBILITY
+    }
+    useLibrary 'android.test.runner'
+
+}
+
+dependencies {
+    implementation Libs.CONSTRAINTLAYOUT
+    implementation Libs.COROUTINES
+    implementation Libs.DESIGN
+    implementation Libs.KOTLIN
+    implementation Libs.OKHTTP
+    implementation Libs.OKIO
+    implementation Libs.REALM
+    implementation Libs.APPCOMPAT
+    implementation PlayServicesLibs.BASEMENT
+    implementation project(':varanus')
+
+    testImplementation TestLibs.JUNIT
+
+    androidTestImplementation TestLibs.ESPRESSO
+
+}

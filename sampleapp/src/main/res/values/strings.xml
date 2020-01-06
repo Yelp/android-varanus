@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Feed the monitor lizard</string>
+    <string name="action_settings">Settings</string>
+    <string name="food_insect">Feed insects</string>
+    <string name="food_fruit">Feed fruit</string>
+    <string name="food_fish">Feed fish</string>
+
+    <string name="explanation">Feed the lizard, but usually it\'s sleeping. Every 10 seconds, it\'ll
+        wake up and eat what you fed it.</string>
+    <string name="insect_counter">Insects eaten: %1$d</string>
+    <string name="insect_counter_weight">Insect weight eaten: %1$d</string>
+    <string name="fruit_counter">Fruit eaten: %1$d</string>
+    <string name="fruit_counter_weight">Fruit weight eaten: %1$d</string>
+    <string name="fish_counter">Fish eaten: %1$d</string>
+    <string name="fish_counter_weight">Fish weight eaten: %1$d</string>
+    <string name="total_counter">Total eaten: %1$d</string>
+    <string name="total_counter_weight">Total weight eaten: %1$d</string>
+
+    <string name="fed_not_too_much">The monitor lizard is happy</string>
+    <string name="fed_too_much_total"> Oh no, you fed the monitor lizard too much!</string>
+    <string name="fed_too_much_specific">Oh no, you fed the monitor lizard too much %1$s!</string>
+
+    <string name="reset">Reset alerts</string>
+</resources>

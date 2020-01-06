@@ -1,0 +1,23 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    toolVersion = Versions.DETEKT
+    input = files("$projectDir/src")
+    config = files("$rootDir/static_analysis_config/detekt_config.yml")
+}
+
+dependencies {
+    // Kotlin
+    implementation Libs.KOTLIN
+    implementation Libs.KOTLIN_REFLECT
+    testImplementation TestLibs.KOTLIN_JUNIT
+    androidTestImplementation TestLibs.KOTLIN_JUNIT
+
+    // Detekt
+    detekt Libs.DETEKT
+
+    // Mockito-Kotlin
+    testImplementation TestLibs.MOCKITO_KOTLIN_2
+}
+

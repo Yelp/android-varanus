@@ -1,0 +1,79 @@
+apply plugin: 'signing'
+apply plugin: 'digital.wup.android-maven-publish'
+apply plugin: 'net.linguica.maven-settings'
+
+group Publishing.GROUP
+version Publishing.VERSION
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+
+publishing {
+  publications {
+
+      mavenAar(MavenPublication) {
+          from components.android
+          groupId = Publishing.GROUP
+          version = Publishing.VERSION
+          artifact sourcesJar
+
+          pom {
+              name = projectName
+              description = projectDescription
+              url = 'https://github.com/Yelp/android-varanus'
+              licenses {
+                  license {
+                      name = 'The Apache License, Version 2.0'
+                      url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                  }
+              }
+              developers {
+                  developer {
+                      name = 'Yelp'
+                      email = '?'
+                  }
+
+                  developer {
+                      id = 'sanae'
+                      name = 'Sanae Rosen'
+                      email = 'sanae@yelp.com'
+                  }
+              }
+              scm {
+                  connection = 'scm:git:git@github.com:Yelp/android-varanus.git'
+                  developerConnection = 'scm:git:git@github.com:Yelp/android-varanus.git'
+                  url = 'https://github.com/Yelp/android-varanus'
+              }
+          }
+      }
+  }
+  repositories {
+      maven {
+          if (isReleaseBuild()) {
+              name "SonatypeRelease"
+              url "https://nexus.yelpcorp.com/nexus/content/repositories/snapshots/"
+          } else {
+              name "SonatypeSnapshot"
+              url "https://nexus.yelpcorp.com/nexus/content/repositories/releases/"
+          }
+          if (project.hasProperty("signing.keyId")) {
+              credentials {
+                  username = ossrhUsername
+                  password = ossrhPassword
+              }
+          }
+      }
+  }
+}
+
+// Allows people to publish to their local maven even if they don't have signing keys.
+signing {
+    required { project.hasProperty("signing.keyId") }
+    sign publishing.publications.mavenAar
+}
+
+def isReleaseBuild() {
+    return !Publishing.VERSION.endsWith("-SNAPSHOT")
+}
