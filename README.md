@@ -1,6 +1,6 @@
-(Insert logo here)
+<img src="VARANUS-LIZARD.png" width="400">
 
-## Varanus the monitor lizards will monitor your network traffic and protect you and your users from excessive network requests.
+## Varanus the monitor lizard will monitor your network traffic and protect you and your users from excessive network requests.
 
 ![Maven Central](https://img.shields.io/maven-central/v/com.yelp.android/varanus.svg)
 [![Build Status](https://travis-ci.org/Yelp/varanus.svg?branch=master)](https://travis-ci.org/Yelp/varanus)
@@ -23,23 +23,23 @@ It also calls out to the NetworkShutoffManager.  It asks this class whether or n
 
 Both of these are saved to a persistent database, so that after a restart you continue doing the same thing.  This is because a plausible scenario for sending too much traffic might involve the app crashing and restarting a lot.
 
-<img src=".documentation/images/overview.png">
+<img src="./documentation/images/overview.png">
 
 ### Network Shutoff
 
 We used a 555 error code to shut off all traffic from an endpoint and a 556 error code to shut off all traffic generally.  These are easy to remember and not real error codes (so this won't be triggered by mistake), but can be configured.  An interceptor observes all traffic and watches for this error code as a signal as to when to start dropping traffic.  The interceptor can also drop traffic, since all traffic is routed through it.
 
-<img src=".documentation/images/network_shutoff.png">
+<img src="./documentation/images/network_shutoff.png">
 
 An endpoint can actually be in three states.  When SENDING, the interceptor does nothing except watch for the appropriate error code.  When it gets that code, it switches to SHUTOFF and sets a timer.  After the timer expires, it changes to ATTEMPTING and lets the first request through, then throttles requests.  If another error code comes back, it goes back to SHUTOFF and waits again, but with an increasing backoff.  Otherwise, it goes back to SENDING.  This state is also saved in a persistent database in case of restarts.
 
-<img src=".documentation/images/network_shutoff_states.png">
+<img src="./documentation/images/network_shutoff_states.png">
 
 ### Network Logging
 
 This is pretty straightforward - we add up network requests and sizes, and send it out in batches piggybacking on existing requests, but don't send anything until a timer expires.  After sending, we clear all the logs.
 
-<img src=".documentation/images/network_logging.png">
+<img src="./documentation/images/network_logging.png">
 
 ## Setup
 
