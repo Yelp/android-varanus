@@ -18,3 +18,4 @@ class AppEndpointKeyExtractor: EndpointKeyExtractor {
 
     override fun getType(request: Request) = request.url().encodedPathSegments()[SERVICE]
 }
+

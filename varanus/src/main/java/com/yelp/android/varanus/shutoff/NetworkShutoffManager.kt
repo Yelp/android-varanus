@@ -40,7 +40,12 @@ class NetworkShutoffManager @JvmOverloads constructor(
         launch {
             persister.getAll().filter { it != GLOBAL }.forEach { endpoint ->
                 endpointShutoffs[endpoint] =
-                        CategoryOfTrafficShutoff(clock, randomizer, persister, endpoint, shutoffConfig)
+                        CategoryOfTrafficShutoff(
+                                clock,
+                                randomizer,
+                                persister,
+                                endpoint,
+                                shutoffConfig)
             }
         }
     }
@@ -61,12 +66,18 @@ class NetworkShutoffManager @JvmOverloads constructor(
     }
 
     /**
-     * Helper function to set up the CategoryOfTrafficShutoff if necessary, before calling shutoff() on it
+     * Helper function to set up the CategoryOfTrafficShutoff if necessary, before calling
+     * shutoff() on it
      */
     private fun setEndpointSpecificShutoff(endpoint: String) {
         var endpointManager = endpointShutoffs[endpoint]
         if (endpointManager == null) {
-            endpointManager = CategoryOfTrafficShutoff(clock, randomizer, persister, endpoint, shutoffConfig)
+            endpointManager = CategoryOfTrafficShutoff(
+                    clock,
+                    randomizer,
+                    persister,
+                    endpoint,
+                    shutoffConfig)
             endpointManager = endpointShutoffs.putIfAbsent(endpoint, endpointManager)
                     ?: endpointManager
         }
@@ -111,7 +122,8 @@ class NetworkShutoffManager @JvmOverloads constructor(
      * This wraps Math.random so that it can be mocked in tests.
      */
     open class Randomizer(private val shutoffConfig: Config) {
-        open fun randomizeTime(time: Long) = time + (Math.random() * shutoffConfig.backoffSpread).roundToLong()
+        open fun randomizeTime(time: Long) =
+                time + (Math.random() * shutoffConfig.backoffSpread).roundToLong()
         open fun randomizeSendRequest(oneOutOf: Int) = (Math.random() * oneOutOf) < 1
     }
 

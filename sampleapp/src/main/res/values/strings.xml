@@ -20,5 +20,4 @@
     <string name="fed_too_much_total"> Oh no, you fed the monitor lizard too much!</string>
     <string name="fed_too_much_specific">Oh no, you fed the monitor lizard too much %1$s!</string>
 
-    <string name="reset">Reset alerts</string>
 </resources>

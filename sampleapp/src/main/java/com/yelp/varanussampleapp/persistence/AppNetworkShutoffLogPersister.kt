@@ -1,6 +1,5 @@
 package com.yelp.varanussampleapp.persistence
 
-
 import com.yelp.android.varanus.shutoff.NetworkShutoffLogPersister
 
 import com.yelp.android.varanus.shutoff.NetworkShutoffLog

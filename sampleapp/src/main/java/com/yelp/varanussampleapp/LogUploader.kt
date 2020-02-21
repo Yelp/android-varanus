@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
  * In this case, we are displaying these summaries in the app, but in reality, you probably want
  * to send them to a server somewhere with some sort of logging or analytics.
  */
-class LogUploader(private val activity: MonitorLizardActivity) : LogUploadingManager.LogUploaderBase {
+class LogUploader(
+        private val activity: MonitorLizardActivity
+) : LogUploadingManager.LogUploaderBase {
 
     val foodStats = mapOf(
             "fruit" to Counter(),
@@ -46,3 +48,4 @@ class LogUploader(private val activity: MonitorLizardActivity) : LogUploadingMan
         }
     }
 }
+

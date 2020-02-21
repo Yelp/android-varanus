@@ -6,7 +6,8 @@ import org.junit.Test
  * This tests specifically the functionality of blocking just one endpoint (as well as how that
  * interacts with other endpoints being blocked and global blocks.
  *
- * More general network traffic blocking functionality is tested in [GlobalNetworkShutoffManagerTest].
+ * More general network traffic blocking functionality is tested in
+ * [GlobalNetworkShutoffManagerTest].
  */
 class PerEndpointNetworkShutoffManagerTest : NetworkShutoffManagerTest() {
     @Test

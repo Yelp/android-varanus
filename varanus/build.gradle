@@ -68,6 +68,12 @@ check {
     checkstyle {
         config '../static_analysis_config/checkstyle_config.xml'
     }
+
+
+    // TODO enable this
+    findbugs {
+        skip true 
+    }
 }
 
 configurations {

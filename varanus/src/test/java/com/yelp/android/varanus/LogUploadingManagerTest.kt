@@ -23,8 +23,11 @@ class LogUploadingManagerTest {
         alertIssuer = TestLogUploader()
         trafficAlerter = LogUploadingManager(alertIssuer, windowSize, windowSize)
                 .also { it.setClockForTesting(testClock) }
-        endpoints = mapOf("test" to EndpointSpecificNetworkTracker("test", windowSize, persister, trafficAlerter),
-                "test2" to EndpointSpecificNetworkTracker("test2", windowSize, persister, trafficAlerter))
+        val endpoint1 =
+                EndpointSpecificNetworkTracker("test", windowSize, persister, trafficAlerter)
+        val endpoint2 =
+                EndpointSpecificNetworkTracker("test2", windowSize, persister, trafficAlerter)
+        endpoints = mapOf("test" to endpoint1, "test2" to endpoint2)
     }
 
     @Test
