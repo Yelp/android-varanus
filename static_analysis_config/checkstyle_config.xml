@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+
+    <!-- Normal modules here -->
+
+    <module name="TreeWalker">
+        <!-- TreeWalker modules here -->
+        <module name="LeftCurly" />
+        <module name="NeedBraces" />
+
+        <!-- Check for leading whitespace before semicolons and other operands  -->
+        <module name="NoWhitespaceBefore" />
+
+        <!-- But allow whitespace before dots -->
+        <module name="NoWhitespaceBefore">
+            <property name="tokens" value="DOT" />
+            <property name="allowLineBreaks" value="true" />
+        </module>
+
+        <module name="ModifierOrder" />
+
+        <!-- Check for lines with trailing whitespace. -->
+        <module name="Regexp">
+            <property name="format" value="[ \t]+$" />
+            <property name="illegalPattern" value="true" />
+            <property name="message" value="Trailing whitespace" />
+        </module>
+
+        <!-- Don't allow deprecated function calls. -->
+        <module name="Regexp">
+            <property name="format" value="WebImageView\.getResourceForName" />
+            <property name="illegalPattern" value="true" />
+            <property name="ignoreComments" value="true" />
+            <property name="message" value="Don't use WebImageView.getResourceForName - instead, use UtilUI.getResourceForName!" />
+        </module>
+
+        <!-- Don't allow ACTION_SEND with EXTRA_STREAM, unless
+                     YelpGuard.getSecureStreamFromExternalIntent(...) is used. -->
+        <module name="Regexp">
+            <property name="id" value="UnsafeActionSendWithExtraStream"/>
+            <property name="format" value="^.*\.get\(Intent\.EXTRA_STREAM\).*$" />
+            <property name="illegalPattern" value="true" />
+            <property name="ignoreComments" value="true" />
+            <property name="message" value="Don't use intent.getExtras().get(Intent.EXTRA_STREAM) - instead, use YelpGuard.getSecureStreamFromExternalIntent(...)!" />
+        </module>
+    </module>
+
+    <!-- Suppression modules below -->
+    <module name="SuppressionCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE IGNORE\s+(\S+)" />
+        <property name="onCommentFormat" value="CHECKSTYLE END IGNORE\s+(\S+)" />
+        <property name="checkFormat" value="$1" />
+    </module>
+
+    <module name="SuppressWithNearbyCommentFilter">
+        <property name="commentFormat" value="SUPPRESS CHECKSTYLE (\w+)" />
+        <property name="checkFormat" value="$1" />
+        <property name="influenceFormat" value="1" />
+    </module>
+
+</module>
