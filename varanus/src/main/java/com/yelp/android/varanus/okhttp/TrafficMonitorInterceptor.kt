@@ -8,8 +8,13 @@ import com.yelp.android.varanus.util.CoroutineScopeAndJob
 import com.yelp.android.varanus.util.JobBasedScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.*
+import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
+import okhttp3.MediaType
+import okhttp3.Protocol
+import okhttp3.Response
+import okhttp3.ResponseBody
+import okhttp3.Request
 
 /**
  * An Interceptor that logs the amount of data sent in each request over OkHttp.
@@ -115,7 +120,8 @@ class TrafficMonitorInterceptor(
          */
         override fun done() {
             launch {
-                monitor.addLog(NetworkTrafficLog(false, endpoint, endpointType, totalBytesRead))
+                monitor.addLog(
+                        NetworkTrafficLog(false, endpoint, endpointType, totalBytesRead))
             }
         }
     }

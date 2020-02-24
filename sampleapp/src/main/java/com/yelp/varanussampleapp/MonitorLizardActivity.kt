@@ -1,6 +1,5 @@
 package com.yelp.varanussampleapp
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +22,10 @@ const val url = "https://devnull-as-a-service.com/dev/null/varanus/"
 const val dummy_text = " OMNOMNOM "
 private const val LOGTAG = "VARANUS_MAIN"
 
+private const val INSECT_SIZE = 1
+private const val FRUIT_SIZE = 5
+private const val FISH_SIZE = 10
+
 class MonitorLizardActivity: AppCompatActivity(),
         CoroutineScopeAndJob by JobBasedScope(Dispatchers.IO){
 
@@ -38,9 +41,9 @@ class MonitorLizardActivity: AppCompatActivity(),
         client = MonitorLizardOkhttpClientFactory.configureOkhttpClient(this, alertIssuer)
         setUpTextFields()
 
-        setUpButton(R.id.insect_button, "insect", 1)
-        setUpButton(R.id.fruit_button, "fruit", 5)
-        setUpButton(R.id.fish_button, "fish", 10)
+        setUpButton(R.id.insect_button, "insect", INSECT_SIZE)
+        setUpButton(R.id.fruit_button, "fruit", FRUIT_SIZE)
+        setUpButton(R.id.fish_button, "fish", FISH_SIZE)
     }
 
     private fun setUpButton(id: Int, foodName: String, size: Int) {
@@ -48,7 +51,8 @@ class MonitorLizardActivity: AppCompatActivity(),
             launch {
                 val body = RequestBody.create(MediaType.get("text/plain"), dummy_text.repeat(size))
                 val request = Request.Builder().url(url + foodName).post(body).build()
-                Log.d(LOGTAG, "Sending a network request of size ${body.contentLength()} for $foodName")
+                Log.d(LOGTAG, "Sending a network request of size ${body.contentLength()}" +
+                        " for $foodName")
                 client.newCall(request).execute()
             }
         }

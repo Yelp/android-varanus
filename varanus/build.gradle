@@ -68,6 +68,11 @@ check {
     checkstyle {
         config '../static_analysis_config/checkstyle_config.xml'
     }
+
+    // TODO enable this, see https://github.com/Yelp/android-varanus/issues/2
+    findbugs {
+        skip true 
+    }
 }
 
 configurations {

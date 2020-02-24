@@ -8,11 +8,12 @@ import com.yelp.varanussampleapp.persistence.PersistentDataRepo
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
-
 private const val SPECIFIC_ENDPOINT_ERROR_CODE = 555
 private const val ALL_ENDPOINT_ERROR_CODE = 556
 private const val MAX_BACKOFF_MULTIPLYER = 12 // 12 * 5 = 1 minute
 private const val THROTTLE_AMOUNT = 10 // drop 9 in 10 requests when trying again
+private const val WINDOW_LENGTH = 5L // seconds
+private const val BACKOFF_SPREAD = 2L // seconds
 
 /**
  * In order to support any network library you might use, we have pulled out the OkHttp related
@@ -26,21 +27,22 @@ private const val THROTTLE_AMOUNT = 10 // drop 9 in 10 requests when trying agai
  */
 object MonitorLizardOkhttpClientFactory {
 
-    fun configureOkhttpClient(activity: MonitorLizardActivity, alertIssuer: LogUploader): OkHttpClient {
+    fun configureOkhttpClient(activity: MonitorLizardActivity, alertIssuer: LogUploader):
+            OkHttpClient {
 
         val persistentDataRepo = PersistentDataRepo.getPersistentRepo(activity)
 
         val shutoffConfig = NetworkShutoffManager.Config(
-                TimeUnit.SECONDS.toMillis(5), // Probably should be minutes in real life
+                TimeUnit.SECONDS.toMillis(WINDOW_LENGTH), // Probably should be minutes in real life
                 MAX_BACKOFF_MULTIPLYER,
                 THROTTLE_AMOUNT,
                 SPECIFIC_ENDPOINT_ERROR_CODE,
                 ALL_ENDPOINT_ERROR_CODE,
-                TimeUnit.SECONDS.toMillis(2))
+                TimeUnit.SECONDS.toMillis(BACKOFF_SPREAD))
 
         val networkMonitor = NetworkMonitor(
-                TimeUnit.SECONDS.toMillis(5),
-                TimeUnit.SECONDS.toMillis(5),
+                TimeUnit.SECONDS.toMillis(WINDOW_LENGTH),
+                TimeUnit.SECONDS.toMillis(WINDOW_LENGTH),
                 persistentDataRepo.networkTrafficLogPersister,
                 alertIssuer
         )
