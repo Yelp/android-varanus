@@ -3,7 +3,7 @@
 ## Varanus the monitor lizard will monitor your network traffic and protect you and your users from excessive network requests.
 
 ![Maven Central](https://img.shields.io/maven-central/v/com.yelp.android/varanus.svg)
-[![Build Status](https://travis-ci.org/Yelp/varanus.svg?branch=master)](https://travis-ci.org/Yelp/varanus)
+[![Build Status](https://travis-ci.org/Yelp/android-varanus.svg?branch=master)](https://travis-ci.org/Yelp/android-varanus)
 [![Twitter](https://img.shields.io/badge/Twitter-@YelpEngineering-blue.svg)](https://twitter.com/YelpEngineering)
 [![License](https://img.shields.io/badge/license-Apache2.0%20License-orange.svg)](LICENSE)
 
