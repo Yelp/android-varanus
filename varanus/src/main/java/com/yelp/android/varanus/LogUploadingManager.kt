@@ -49,15 +49,16 @@ class LogUploadingManager(
         var count = 0
 
         endpoints.forEach {(endpoint, tracker) ->
-            if (tracker.requestCount != 0) {
+
+            if (tracker.requestCount.get() != 0) {
 
                 // These must happen first because the endpoint gets cleared
-                size += tracker.requestSize
-                count += tracker.requestCount
+                size += tracker.requestSize.get()
+                count += tracker.requestCount.get()
 
                 // Then upload the log for this endpoint
-                logUploader.uploadTrafficLogSummaryForInterval(tracker.requestSize,
-                        tracker.requestCount,
+                logUploader.uploadTrafficLogSummaryForInterval(tracker.requestSize.get(),
+                        tracker.requestCount.get(),
                         windowLength,
                         endpoint)
                 tracker.clearLog()

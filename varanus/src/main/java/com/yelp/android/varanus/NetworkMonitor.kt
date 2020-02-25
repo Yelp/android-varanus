@@ -36,7 +36,6 @@ class NetworkMonitor(
      *
      * @param log Abstraction of a network request with the size and an endpoint key.
      */
-    @Synchronized
     suspend fun addLog(log: NetworkTrafficLog) {
         if (log.endpoint !in endpoints.keys) {
 
