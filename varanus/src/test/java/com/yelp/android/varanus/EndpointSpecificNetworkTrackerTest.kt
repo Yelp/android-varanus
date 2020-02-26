@@ -35,8 +35,8 @@ class EndpointSpecificNetworkTrackerTest {
         for (i in 1..5) {
             tracker.addLogAndPersist(NetworkTrafficLog(isRequest, "test", "test", 10))
         }
-        assertEquals(tracker.requestCount, expectedCount + 1)
-        assertEquals(tracker.requestSize, expectedSize + 1)
+        assertEquals(tracker.requestCount.get(), expectedCount + 1)
+        assertEquals(tracker.requestSize.get(), expectedSize + 1)
     }
 
 
