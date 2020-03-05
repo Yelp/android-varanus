@@ -75,24 +75,14 @@ There are a few requirements to compile Varanus.
 
 Fork the this repository, and then clone the code to your local machine.
 
-#### 2. Prepare the git hooks
-
-Once you have the repo on your machine, run the following command from the root of the project.
-
-```
-$ make install-hooks
-```
-
-These git hooks will make sure you're not committing private keys to the repository. In the future we might add more functionality.
-
-#### 3. Create a new branch
+#### 2. Create a new branch
 
 We usually like branches to be named:
 
 - `username/issue-number/what-it-do`
 - `targo/24/fix-item-range`
 
-#### 4. Build, change, test, commit
+#### 3. Build, change, test, commit
 
 Repeat as necessary. The project should build from within Android Studio and if it doesn't, see the help section below. You should also be able to compile and run the `varanus-sample-app` to test your changes.
 
@@ -102,7 +92,7 @@ We follow [semver](https://semver.org/) so the version number in `GlobalDependen
 
 Add a summary of your change to the `CHANGELOG.md` file.
 
-#### 5. Push your changes and open a pull request
+#### 4. Push your changes and open a pull request
 
 Push your branch with the new commits to your cloned repo, then open a pull request through GitHub. Once Travis CI gives it a green light along with a member of our team, it will be merged and the new version will be deployed to Maven Central.
 
