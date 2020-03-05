@@ -1,6 +1,7 @@
 apply plugin: 'signing'
 apply plugin: 'digital.wup.android-maven-publish'
 apply plugin: 'net.linguica.maven-settings'
+apply plugin: 'maven-publish'
 
 group Publishing.GROUP
 version Publishing.VERSION
