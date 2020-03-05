@@ -80,6 +80,6 @@ object BuildScriptLibs {
 
 object Publishing {
     const val GROUP = "com.yelp.android"
-    const val VERSION = "2.0.5-SNAPSHOT"
+    const val VERSION = "2.0.5-BETA"
 }
 
