@@ -3,6 +3,8 @@ package com.yelp.android.varanus
 import com.yelp.android.varanus.util.CoroutineScopeAndJob
 import com.yelp.android.varanus.util.JobBasedScope
 import kotlinx.coroutines.Dispatchers
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 
 /**
  * This class keeps track of network usage statistics in a given category. Usually by endpoint,
@@ -31,8 +33,8 @@ class EndpointSpecificNetworkTracker(
         private val networkTrafficAlerter: LogUploadingManager
 ) : CoroutineScopeAndJob by JobBasedScope(Dispatchers.IO) {
 
-    var requestCount: Int = 0
-    var requestSize: Long = 0L
+    var requestCount = AtomicInteger()
+    var requestSize = AtomicLong()
 
 
     /**
@@ -41,13 +43,13 @@ class EndpointSpecificNetworkTracker(
      */
     init {
         val priorValues = trafficLogPersister.getSizeAndClear(windowLength, endpoint)
-        requestCount = priorValues.count
-        requestSize = priorValues.size
+        requestCount.getAndSet(priorValues.count)
+        requestSize.getAndSet(priorValues.size)
 
         // This fake network log makes sure the previous request count and request size expires.
         // Otherwise we could get into a state where we keep incrementing these.
         val initialTrafficLog = NetworkTrafficLog(true, endpoint, "n/a",
-                requestSize, requestCount)
+                requestSize.get(), requestCount.get())
 
     }
 
@@ -56,22 +58,20 @@ class EndpointSpecificNetworkTracker(
      *
      * @param log abstraction of a network request with the size and endpoint key.
      */
-    @Synchronized
     fun addLogAndPersist(log: NetworkTrafficLog) {
         if (log.isRequest) {
-            requestCount++
+            requestCount.incrementAndGet()
         }
-        requestSize += log.size
+        requestSize.addAndGet(log.size)
         trafficLogPersister.addLog(log)
     }
 
     /**
      * Once we've logged these requests, we delete them so we don't double-count.
      */
-    @Synchronized
     fun clearLog() {
-        requestCount = 0
-        requestSize = 0
+        requestCount.getAndSet(0)
+        requestSize.getAndSet(0)
         trafficLogPersister.clear(windowLength, endpoint)
     }
 }
