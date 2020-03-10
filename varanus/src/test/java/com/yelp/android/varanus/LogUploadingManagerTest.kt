@@ -85,7 +85,7 @@ class LogUploadingManagerTest {
         endpoints[name]?.addLogAndPersist(NetworkTrafficLog(true, "test", "test", 2))
 
         runBlocking {
-            trafficAlerter.registerLogs(HashMap(endpoints))
+            trafficAlerter.registerLogs(ConcurrentHashMap(endpoints))
         }
     }
 
