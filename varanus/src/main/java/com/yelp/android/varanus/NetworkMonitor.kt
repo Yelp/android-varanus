@@ -1,6 +1,7 @@
 package com.yelp.android.varanus
 
 import com.yelp.android.varanus.LogUploadingManager.LogUploaderBase
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.collections.HashMap
 
 /**
@@ -24,7 +25,7 @@ class NetworkMonitor(
 ) {
     private val networkTrafficAlerter =
             LogUploadingManager(alertIssuer, windowLength, clear_increment)
-    private var endpoints = HashMap<String, EndpointSpecificNetworkTracker>()
+    private var endpoints = ConcurrentHashMap<String, EndpointSpecificNetworkTracker>()
 
 
     /**

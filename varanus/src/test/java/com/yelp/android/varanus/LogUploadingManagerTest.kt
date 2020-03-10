@@ -3,6 +3,7 @@ package com.yelp.android.varanus
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 
@@ -14,7 +15,7 @@ class LogUploadingManagerTest {
     private lateinit var testClock: TestClock
     private lateinit var alertIssuer: TestLogUploader
     private lateinit var trafficAlerter: LogUploadingManager
-    private lateinit var endpoints: Map<String, EndpointSpecificNetworkTracker>
+    private lateinit var endpoints: ConcurrentHashMap<String, EndpointSpecificNetworkTracker>
     private val CLEAR_INCREMENT = windowSize + 1
 
     @Before
@@ -27,7 +28,7 @@ class LogUploadingManagerTest {
                 EndpointSpecificNetworkTracker("test", windowSize, persister, trafficAlerter)
         val endpoint2 =
                 EndpointSpecificNetworkTracker("test2", windowSize, persister, trafficAlerter)
-        endpoints = mapOf("test" to endpoint1, "test2" to endpoint2)
+        endpoints = ConcurrentHashMap(mapOf("test" to endpoint1, "test2" to endpoint2))
     }
 
     @Test
