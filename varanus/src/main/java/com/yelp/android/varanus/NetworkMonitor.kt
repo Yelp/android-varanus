@@ -44,8 +44,10 @@ class NetworkMonitor(
                 persister,
                 networkTrafficAlerter)
 
-        val endpointTracker = endpoints[log.endpoint] ?: newEndpoint
-        endpoints.putIfAbsent(log.endpoint, endpointTracker)
+        // check if you need to replace first for slightly added efficiency
+        var endpointTracker = endpoints[log.endpoint]
+        endpointTracker = endpointTracker ?: endpoints.putIfAbsent(log.endpoint, newEndpoint)
+        endpointTracker = endpointTracker ?: newEndpoint
         
         /* We might lose logs if things aren't initialized yet but in any reasonable scenario  one
         would worry about, the problem will persist long enough to send logs later.
