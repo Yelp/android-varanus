@@ -20,8 +20,8 @@ import kotlin.collections.HashMap
 class NetworkMonitor(
         private val windowLength: Long,
         clear_increment: Long,
-    private val persister: NetworkTrafficLogPersister,
-    alertIssuer: LogUploaderBase
+        private val persister: NetworkTrafficLogPersister,
+        alertIssuer: LogUploaderBase
 ) {
     private val networkTrafficAlerter =
             LogUploadingManager(alertIssuer, windowLength, clear_increment)
@@ -38,22 +38,20 @@ class NetworkMonitor(
      * @param log Abstraction of a network request with the size and an endpoint key.
      */
     suspend fun addLog(log: NetworkTrafficLog) {
-        if (log.endpoint !in endpoints.keys) {
 
-            val endpointTracker = EndpointSpecificNetworkTracker(
-                    log.endpoint,
-                    windowLength,
-                    persister,
-                    networkTrafficAlerter)
-
-            endpoints[log.endpoint] = endpointTracker
-        }
-
+        val endpointTracker = endpoints[log.endpoint] ?: endpoints.putIfAbsent(
+                log.endpoint,
+                EndpointSpecificNetworkTracker(
+                        log.endpoint,
+                        windowLength,
+                        persister,
+                        networkTrafficAlerter))
+        
         /* We might lose logs if things aren't initialized yet but in any reasonable scenario  one
         would worry about, the problem will persist long enough to send logs later.
         We decided that the small risk of an extremely unusual problem going unnoticed is
         outweighed by the performance hit of initializing the network monitor synchronously. */
-        endpoints[log.endpoint]?.addLogAndPersist(log)
+        endpointTracker?.addLogAndPersist(log)
         networkTrafficAlerter.registerLogs(endpoints)
     }
 }
