@@ -38,20 +38,20 @@ class NetworkMonitor(
      * @param log Abstraction of a network request with the size and an endpoint key.
      */
     suspend fun addLog(log: NetworkTrafficLog) {
-
-        val endpointTracker = endpoints[log.endpoint] ?: endpoints.putIfAbsent(
+        val newEndpoint = EndpointSpecificNetworkTracker(
                 log.endpoint,
-                EndpointSpecificNetworkTracker(
-                        log.endpoint,
-                        windowLength,
-                        persister,
-                        networkTrafficAlerter))
+                windowLength,
+                persister,
+                networkTrafficAlerter)
+
+        val endpointTracker = endpoints[log.endpoint] ?: newEndpoint
+        endpoints.putIfAbsent(log.endpoint, endpointTracker)
         
         /* We might lose logs if things aren't initialized yet but in any reasonable scenario  one
         would worry about, the problem will persist long enough to send logs later.
         We decided that the small risk of an extremely unusual problem going unnoticed is
         outweighed by the performance hit of initializing the network monitor synchronously. */
-        endpointTracker?.addLogAndPersist(log)
+        endpointTracker.addLogAndPersist(log)
         networkTrafficAlerter.registerLogs(endpoints)
     }
 }
