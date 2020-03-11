@@ -2,6 +2,7 @@ package com.yelp.android.varanus
 
 import com.google.android.gms.common.util.Clock
 import com.google.android.gms.common.util.DefaultClock
+import java.util.concurrent.ConcurrentHashMap
 
 const val TOTAL = "total"
 
@@ -40,7 +41,7 @@ class LogUploadingManager(
      * double-count.
      */
     suspend fun registerLogs(
-            endpoints: HashMap<String, EndpointSpecificNetworkTracker>
+            endpoints: ConcurrentHashMap<String, EndpointSpecificNetworkTracker>
     ) {
         if (clock.elapsedRealtime() - lastTimeCleared < maxSendFrequency) return
         lastTimeCleared = clock.elapsedRealtime()
