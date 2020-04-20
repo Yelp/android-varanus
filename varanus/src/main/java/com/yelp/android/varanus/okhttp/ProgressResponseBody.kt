@@ -1,10 +1,11 @@
 package com.yelp.android.varanus.okhttp
 
 import okhttp3.ResponseBody
-import okio.Buffer	import okio.*
+import okio.Buffer
 import okio.BufferedSource
 import okio.ForwardingSource
 import okio.Source
+import okio.buffer
 
 /**
  * This is used by [TrafficMonitorInterceptor] to keep track of statistics on the network responses
