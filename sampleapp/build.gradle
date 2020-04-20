@@ -29,8 +29,12 @@ android {
         targetCompatibility = Versions.TARGET_COMPATIBILITY
         sourceCompatibility = Versions.SOURCE_COMPATIBILITY
     }
-    useLibrary 'android.test.runner'
 
+    kotlinOptions {
+        jvmTarget = Versions.TARGET_COMPATIBILITY
+    }
+
+    useLibrary 'android.test.runner'
 }
 
 dependencies {
