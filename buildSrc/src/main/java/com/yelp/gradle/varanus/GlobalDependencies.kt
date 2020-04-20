@@ -21,7 +21,7 @@ object Versions {
     const val GOOGLE_PLAY_SERVICES_PLUGIN = "4.0.1"
     // If you want to update the Gradle version, change this number and then run `./gradlew wrapper`.
     const val GRADLE = "5.4.1"
-    const val KOTLIN = "1.3.21"
+    const val KOTLIN = "1.3.72"
     const val MAVEN_PUBLISH = "3.6.2"
     const val MAVEN_SETTINGS = "0.5"
     const val OK_HTTP = "3.12.0"
@@ -43,7 +43,7 @@ object Libs {
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINES}"
     const val DETEKT = "io.gitlab.arturbosch.detekt:detekt-cli:${Versions.DETEKT}"
     const val DESIGN = "com.google.android.material:material:${Versions.DESIGN}"
-    const val KOTLIN = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.KOTLIN}"
+    const val KOTLIN = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.KOTLIN}"
     const val KOTLIN_REFLECT = "org.jetbrains.kotlin:kotlin-reflect:${Versions.KOTLIN}"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:${Versions.OK_HTTP}"
     const val OKIO = "com.squareup.okio:okio:${Versions.OKIO}"

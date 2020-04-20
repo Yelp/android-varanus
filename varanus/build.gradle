@@ -43,6 +43,7 @@ dependencies {
 
 android {
     compileSdkVersion Versions.COMPILE_SDK
+
     defaultConfig {
         minSdkVersion Versions.MIN_SDK
         targetSdkVersion Versions.TARGET_SDK
@@ -50,11 +51,21 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        targetCompatibility = Versions.TARGET_COMPATIBILITY
+        sourceCompatibility = Versions.SOURCE_COMPATIBILITY
+    }
+
+    kotlinOptions {
+        jvmTarget = Versions.TARGET_COMPATIBILITY
     }
 }
 
