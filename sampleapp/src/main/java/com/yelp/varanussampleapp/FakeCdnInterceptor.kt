@@ -7,6 +7,7 @@ import okhttp3.Request
 import okhttp3.ResponseBody
 import okhttp3.Protocol
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 
 private const val SPECIFIC_ENDPOINT_ERROR_CODE = 555
 private const val ALL_ENDPOINT_ERROR_CODE = 556
@@ -51,7 +52,7 @@ class FakeCdnInterceptor(
                 .code(code)
                 .request(request)
                 .message("oh no") // not used, but okhttp expects this to be non-null
-                .body(ResponseBody.create(MediaType.get("text/plain"), "oh no")) // not used
+                .body(ResponseBody.create("text/plain".toMediaType(), "oh no")) // not used
                 .protocol(Protocol.HTTP_2)
                 .build()
     }

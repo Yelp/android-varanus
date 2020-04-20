@@ -24,7 +24,7 @@ object Versions {
     const val KOTLIN = "1.3.72"
     const val MAVEN_PUBLISH = "3.6.2"
     const val MAVEN_SETTINGS = "0.5"
-    const val OK_HTTP = "3.12.0"
+    const val OK_HTTP = "4.5.0"
     const val OKIO = "2.2.2"
     const val REALM = "5.7.0"
 

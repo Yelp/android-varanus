@@ -1,10 +1,9 @@
 package com.yelp.android.varanus.okhttp
 
 import okhttp3.ResponseBody
-import okio.Buffer
+import okio.Buffer	import okio.*
 import okio.BufferedSource
 import okio.ForwardingSource
-import okio.Okio
 import okio.Source
 
 /**
@@ -17,7 +16,7 @@ class ProgressResponseBody(
 ) : ResponseBody() {
 
     private val bufferedSource: BufferedSource =
-            Okio.buffer(ProgressTrackingSource(responseBody.source(), progressListener))
+            ProgressTrackingSource(responseBody.source(), progressListener).buffer()
 
     override fun contentType() = responseBody.contentType()
 

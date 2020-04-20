@@ -14,8 +14,8 @@ class AppEndpointKeyExtractor: EndpointKeyExtractor {
         const val SERVICE = 2
     }
 
-    override fun getEndpoint(request: Request) = request.url().encodedPathSegments()[FOOD_LABEL]
+    override fun getEndpoint(request: Request) = request.url.encodedPathSegments[FOOD_LABEL]
 
-    override fun getType(request: Request) = request.url().encodedPathSegments()[SERVICE]
+    override fun getType(request: Request) = request.url.encodedPathSegments[SERVICE]
 }
 
