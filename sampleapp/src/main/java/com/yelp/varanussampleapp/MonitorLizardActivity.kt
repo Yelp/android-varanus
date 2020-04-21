@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -49,7 +50,7 @@ class MonitorLizardActivity: AppCompatActivity(),
     private fun setUpButton(id: Int, foodName: String, size: Int) {
         findViewById<Button>(id).setOnClickListener {
             launch {
-                val body = RequestBody.create(MediaType.get("text/plain"), dummy_text.repeat(size))
+                val body = RequestBody.create("text/plain".toMediaType(), dummy_text.repeat(size))
                 val request = Request.Builder().url(url + foodName).post(body).build()
                 Log.d(LOGTAG, "Sending a network request of size ${body.contentLength()}" +
                         " for $foodName")

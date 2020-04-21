@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody
@@ -41,7 +42,7 @@ class TrafficMonitorInterceptor(
         val endpoint = endpointKeyExtractor.getEndpoint(request)
         val endpointType = endpointKeyExtractor.getType(request)
 
-        val length = request.body()?.contentLength() ?: 0
+        val length = request.body?.contentLength() ?: 0
 
         launch {
             monitor.addLog(NetworkTrafficLog(true, endpoint, endpointType, length))
@@ -56,7 +57,7 @@ class TrafficMonitorInterceptor(
         // This is where the network shutoff man
         networkShutoffManager.determineShutoffStatusFromRequest(response, endpoint)
 
-        val body: ResponseBody? = response.body()
+        val body: ResponseBody? = response.body
 
         // This allows Varanus to count up the volume of traffic being received over time.
         return if (body != null) {
@@ -84,7 +85,7 @@ class TrafficMonitorInterceptor(
                                       networkShutoffManager: NetworkShutoffManager
     ): Response {
         val errorCode = networkShutoffManager.getErrorCodeForResponse()
-        val body = ResponseBody.create(MediaType.get("text/plain"), "")
+        val body = ResponseBody.create("text/plain".toMediaType(), "")
         return Response.Builder()
                 .code(errorCode)
                 .request(request)

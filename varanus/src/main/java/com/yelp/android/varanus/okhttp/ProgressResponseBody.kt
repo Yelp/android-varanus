@@ -4,8 +4,8 @@ import okhttp3.ResponseBody
 import okio.Buffer
 import okio.BufferedSource
 import okio.ForwardingSource
-import okio.Okio
 import okio.Source
+import okio.buffer
 
 /**
  * This is used by [TrafficMonitorInterceptor] to keep track of statistics on the network responses
@@ -17,7 +17,7 @@ class ProgressResponseBody(
 ) : ResponseBody() {
 
     private val bufferedSource: BufferedSource =
-            Okio.buffer(ProgressTrackingSource(responseBody.source(), progressListener))
+            ProgressTrackingSource(responseBody.source(), progressListener).buffer()
 
     override fun contentType() = responseBody.contentType()
 

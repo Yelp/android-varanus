@@ -58,7 +58,7 @@ class NetworkShutoffManager @JvmOverloads constructor(
      */
     @Synchronized
     fun determineShutoffStatusFromRequest(response: Response?, endpoint: String) {
-        when (response?.code()) {
+        when (response?.code) {
             shutoffConfig.globalShutoffCode -> globalShutoff.shutoff()
             shutoffConfig.endpointShutoffCode -> setEndpointSpecificShutoff(endpoint)
             else -> resetEndpoint(endpoint)
