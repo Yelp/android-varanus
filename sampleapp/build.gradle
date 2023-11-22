@@ -5,12 +5,12 @@ apply plugin: 'realm-android'
 apply from: '../module.gradle'
 
 android {
-    compileSdkVersion 28
-
+    namespace "com.yelp.varanus.sampleapp"
     defaultConfig {
         applicationId "com.yelp.varanussampleapp"
-        minSdkVersion 28
-        targetSdkVersion 28
+        minSdkVersion Versions.MIN_SDK
+        targetSdkVersion Versions.TARGET_SDK
+        compileSdkVersion Versions.COMPILE_SDK
         versionCode 1
         versionName "1.0"
 
