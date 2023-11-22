@@ -2,31 +2,31 @@
 
 object Versions {
     // Android
-    const val COMPILE_SDK = 28
+    const val COMPILE_SDK = 31
     const val MIN_SDK = 21
-    const val TARGET_SDK = 28
+    const val TARGET_SDK = 31
 
     // Java
     const val SOURCE_COMPATIBILITY = 1.8
     const val TARGET_COMPATIBILITY = 1.8
 
-    const val ANDROID_BUILD_TOOLS = "3.3.2" // If you update this you should update LINT as well
+    const val ANDROID_BUILD_TOOLS = "8.1.1" // If you update this you should update LINT as well
     const val ANDROID_CHECK = "1.2.5"
     const val APPCOMPAT = "1.0.0"
     const val CACHE2K = "1.2.2.Final"
-    const val COROUTINES = "1.1.0"
+    const val COROUTINES = "1.7.3"
     const val CONSTRAINTLAYOUT = "1.1.3"
     const val DESIGN = "1.0.0"
-    const val DETEKT = "1.0.0-RC12"
+    const val DETEKT = "1.23.3"
     const val GOOGLE_PLAY_SERVICES_PLUGIN = "4.0.1"
     // If you want to update the Gradle version, change this number and then run `./gradlew wrapper`.
-    const val GRADLE = "5.4.1"
-    const val KOTLIN = "1.3.72"
+    const val GRADLE = "8.4.0"
+    const val KOTLIN = "1.9.10"
     const val MAVEN_PUBLISH = "3.6.2"
     const val MAVEN_SETTINGS = "0.5"
     const val OK_HTTP = "4.5.0"
     const val OKIO = "2.2.2"
-    const val REALM = "5.7.0"
+    const val REALM = "10.15.1"
 
     const val ESPRESSO = "3.1.0"
     const val JUNIT = "4.12"

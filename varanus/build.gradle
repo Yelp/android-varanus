@@ -23,9 +23,7 @@ ext.projectDescription = 'A client-side Android library to monitor and limit net
 
 apply plugin: "com.android.library"
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.noveogroup.android.check'
-apply plugin: 'findbugs'
 apply from: '../module.gradle'
 apply from: '../publishing.gradle'
 
@@ -43,7 +41,7 @@ dependencies {
 
 android {
     compileSdkVersion Versions.COMPILE_SDK
-
+    namespace "com.yelp.android.varanus"
     defaultConfig {
         minSdkVersion Versions.MIN_SDK
         targetSdkVersion Versions.TARGET_SDK

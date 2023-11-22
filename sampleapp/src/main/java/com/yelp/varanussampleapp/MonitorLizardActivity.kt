@@ -10,10 +10,10 @@ import android.widget.TextView
 import com.yelp.android.varanus.shutoff.NetworkShutoffManager
 import com.yelp.android.varanus.util.CoroutineScopeAndJob
 import com.yelp.android.varanus.util.JobBasedScope
+import com.yelp.varanus.sampleapp.R
 import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
